@@ -16,9 +16,9 @@ const addSubmission = (array, newName, newScore, newDate) => {
     date: newDate,
     passed: newScore >= 60,
   };
-  array.push(Submission);
+  array.push(submission);
 };
-addSubmission(submissions,"Tom",20,"2020-07-29");
+addSubmission(submissions, "Tom", 20, "2020-07-29");
 console.log(submissions);
 //Declare a function named deleteSubmissionByIndex
 const deleteSubmissionByIndex = (array, index) => {
@@ -26,46 +26,64 @@ const deleteSubmissionByIndex = (array, index) => {
 };
 //Declare a function named deleteSubmissionByName
 const deleteSubmissionByName = (array, name) => {
-  let index = deleteSubmissionByName(array, name);
-  array.splice(index1);
+  let foundIndex = array.findIndex((item) => {
+    return item.name === name;
+  });
+  array.splice(foundIndex, 1);
 };
-deleteSubmissionByName(array, "Jack");
+deleteSubmissionByName(submissions, "Jack");
 console.log(submissions);
 //Declare a function named editSubmission
 const editSubmission = (array, index, score) => {
-  array[index].score=score;
-  array[index].passed=score>= 60;
+  array[index].score = score;
+  array[index].passed = score >= 60;
+};
+console.log(submissions);
+//Declare a function named findSubmissionByName
+const findSubmissionByName = (array, name) => {
+  let foundStudent = array.find((student) => {
+    return student.name === name;
+  });
+  return foundStudent;
+};
+console.log(findSubmissionByName(submissions, "Jill"));
+
+const findLowestScore = (array) => {
+  let currentLowest = array[0];
+  array.forEach((currentScore) => {
+    if (currentScore.score < currentLowest.score) {
+      currentLowest = currentScore;
+    }
+  });
+  return currentLowest;
 };
 
-//Declare a function named findSubmissionByName
-const findSubmissionByName=(array,name)=>{
-let foundstudent = array.find((student)=>{
-    return student.name===name;
-});
-return foundstudent;
+//Find average score
+
+const findAverageScore = (array) => {
+  let sum = 0;
+  for (let item of array) {
+    sum += item.score;
+  }
+  return sum / array.length;
 };
-console.log(findSubmissionByName(student,Jill));
-//Declare a function named findLowestScore
-const findLowestScore=(array)=>{
-    let lowestScore = array.score((scores)=>{
-        array.forEach((score) =>{
-            if(submission.score<lowestScore.score){
-          return lowestScore;
-    };
-    });
+
+console.log(findAverageScore(submissions));
 //Declare a function named filterPassing
-const filterPassing=(array)=>{
-    let passing = array.filter((submissions) => {
-        return filterPassing;
-      });
-      console.log(filterPassing(submissions));
+
+const filterPassing = (array) => {
+  let newArray = array.filter((item) => {
+    return item.score >= 60;
+  });
+  return newArray;
+};
+console.log(filterPassing(submissions));
 
 //Declare a function named filter90AndAbove
-//const filter90AndAbove = (array)=>{
-    //let scores = array.filter((scores>=90) =>{
-       // return filter90AndAbove===true;
-//});  
-    //console.log(filter90AndAbove(scores)):
-//I could not figure out the last question and why this last red mark is everything looks like it has a beginning and a ending
-
-
+const filter90AndAbove = (array) => {
+  let newArray = array.filter((score) => {
+    return score.score >= 90;
+  });
+  return newArray;
+};
+console.log(filter90AndAbove(submissions));
